@@ -1,10 +1,14 @@
 package co.edu.uniquindio.edu.poo.parcial3.model;
 
 public class PanaderoIndustrial extends Empleado implements IPanadero {
-    public PanaderoIndustrial(String nombre, String documento, String codigo, int minutosDisponibles) {
+
+    public PanaderoIndustrial(String nombre,
+                              String documento,
+                              String codigo,
+                              int minutosDisponibles) {
+
         super(nombre, documento, codigo, minutosDisponibles);
     }
-
 
     @Override
     public int calcularMinutos(Pan tipoPan, int cantidad) {

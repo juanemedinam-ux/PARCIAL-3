@@ -1,6 +1,7 @@
 package co.edu.uniquindio.edu.poo.parcial3.model;
 
 public class Pedido {
+
     public String codigo;
     public String nombreCliente;
     public Pan tipoPan;
@@ -10,8 +11,9 @@ public class Pedido {
     public int minutosReservados;
     public Panaderia ownedByPanaderia;
 
+    public Pedido(String codigo,String nombreCliente,Pan tipoPan,
+                  int cantidadPan) {
 
-    public Pedido(String codigo, String nombreCliente, Pan tipoPan, int cantidadPan) {
         this.codigo = codigo;
         this.nombreCliente = nombreCliente;
         this.tipoPan = tipoPan;

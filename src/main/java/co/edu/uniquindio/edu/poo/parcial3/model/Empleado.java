@@ -1,23 +1,28 @@
 package co.edu.uniquindio.edu.poo.parcial3.model;
 
-
 public abstract class Empleado {
+
     public String nombre;
     public String documento;
     public String codigo;
     public int minutosDisponibles;
     public Panaderia ownedByPanaderia;
 
+    public Empleado(String nombre, String documento,
+                    String codigo, int minutosDisponibles) {
 
-    public Empleado(String nombre, String documento, String codigo, int minutosDisponibles) {
         this.nombre = nombre;
         this.documento = documento;
         this.codigo = codigo;
         this.minutosDisponibles = minutosDisponibles;
     }
+
     public void descontarMinutos(int minutos) {
+
         if (minutos > minutosDisponibles) {
-            throw new IllegalStateException("No hay suficientes minutos");
+            throw new IllegalStateException(
+                    "No hay suficientes minutos"
+            );
         }
 
         minutosDisponibles -= minutos;

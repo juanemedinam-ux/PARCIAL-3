@@ -4,7 +4,10 @@ public class Cajero extends Empleado {
 
     public String cajaAsignada;
 
-    public Cajero(String nombre, String documento, String codigo, int minutosDisponibles, String cajaAsignada) {
+    public Cajero(String nombre, String documento,
+                  String codigo, int minutosDisponibles,
+                  String cajaAsignada) {
+
         super(nombre, documento, codigo, minutosDisponibles);
         this.cajaAsignada = cajaAsignada;
     }

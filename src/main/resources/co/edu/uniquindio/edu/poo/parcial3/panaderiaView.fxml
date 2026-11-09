@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="550.0" prefWidth="720.0"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="co.edu.uniquindio.edu.poo.parcial3.viewController.PanaderiaViewController">
+
+    <children>
+
+        <Label layoutX="250.0" layoutY="15.0"
+               text="Panadería El Trigal">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </Label>
+
+        <Pane layoutX="20.0" layoutY="50.0"
+              prefHeight="180.0" prefWidth="680.0"
+              style="-fx-border-color: lightgray;">
+
+            <children>
+
+                <Label layoutX="14.0" layoutY="20.0"
+                       text="Código Pedido:" />
+
+                <TextField fx:id="txtCodigo"
+                           layoutX="120.0" layoutY="15.0" />
+
+                <Label layoutX="320.0" layoutY="20.0"
+                       text="Cliente:" />
+
+                <TextField fx:id="txtCliente"
+                           layoutX="400.0" layoutY="15.0"
+                           prefWidth="250.0" />
+
+                <Label layoutX="14.0" layoutY="70.0"
+                       text="Tipo de Pan:" />
+
+                <ComboBox fx:id="cbTipoPan"
+                          layoutX="120.0" layoutY="65.0"
+                          prefWidth="150.0" />
+
+                <Label layoutX="320.0" layoutY="70.0"
+                       text="Cantidad:" />
+
+                <TextField fx:id="txtCantidad"
+                           layoutX="400.0" layoutY="65.0"
+                           prefWidth="100.0" />
+
+                <Button fx:id="btnRegistrar"
+                        layoutX="280.0" layoutY="120.0"
+                        mnemonicParsing="false"
+                        onAction="#onRegistrarPedido"
+                        prefHeight="35.0"
+                        prefWidth="130.0"
+                        text="Registrar Pedido" />
+
+            </children>
+        </Pane>
+
+        <TableView fx:id="tblPedidos"
+                   layoutX="20.0" layoutY="250.0"
+                   prefHeight="220.0" prefWidth="680.0">
+
+            <columns>
+
+                <TableColumn fx:id="colCodigo"
+                             prefWidth="70.0"
+                             text="Código" />
+
+                <TableColumn fx:id="colCliente"
+                             prefWidth="130.0"
+                             text="Cliente" />
+
+                <TableColumn fx:id="colPan"
+                             prefWidth="100.0"
+                             text="Tipo Pan" />
+
+                <TableColumn fx:id="colCantidad"
+                             prefWidth="70.0"
+                             text="Cant." />
+
+                <TableColumn fx:id="colEstado"
+                             prefWidth="100.0"
+                             text="Estado" />
+
+                <TableColumn fx:id="colAsignado"
+                             prefWidth="90.0"
+                             text="Panadero" />
+
+                <TableColumn fx:id="colTiempo"
+                             prefWidth="110.0"
+                             text="Min. Reservados" />
+
+            </columns>
+        </TableView>
+
+        <Button fx:id="btnAsignar"
+                layoutX="220.0" layoutY="490.0"
+                mnemonicParsing="false"
+                onAction="#onAsignarPedido"
+                prefHeight="30.0"
+                prefWidth="130.0"
+                text="Asignar Pedido" />
+
+        <Button fx:id="btnCancelar"
+                layoutX="380.0" layoutY="490.0"
+                mnemonicParsing="false"
+                onAction="#onCancelarPedido"
+                prefHeight="30.0"
+                prefWidth="130.0"
+                text="Cancelar Pedido" />
+
+    </children>
+</AnchorPane>

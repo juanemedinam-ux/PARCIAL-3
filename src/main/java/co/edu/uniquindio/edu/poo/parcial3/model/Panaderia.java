@@ -10,7 +10,6 @@ public class Panaderia {
 
     public Panaderia(String nombre) {
         this.nombre = nombre;
-
     }
 
     public String getNombre() {
@@ -41,7 +40,9 @@ public class Panaderia {
         listaEmpleados.add(empleado);
     }
 
+    // BUSCAR PEDIDO
     public Pedido buscarPedido(String codigo) {
+
         return listaPedidos.stream()
                 .filter(p -> p.getCodigo().equals(codigo))
                 .findFirst()
@@ -49,19 +50,24 @@ public class Panaderia {
     }
 
     // REGISTRAR PEDIDO
-
-    public void registrarPedido(String codigo, String nombreCliente,
-                                Pan tipoPan, int cantidadPan) {
+    public void registrarPedido(String codigo,
+                                String nombreCliente,
+                                Pan tipoPan,
+                                int cantidadPan) {
 
         if (cantidadPan <= 0) {
-            throw new IllegalArgumentException("La cantidad debe ser mayor que cero");
+            throw new IllegalArgumentException(
+                    "La cantidad debe ser mayor que cero"
+            );
         }
 
         boolean existe = listaPedidos.stream()
                 .anyMatch(p -> p.codigo.equals(codigo));
 
         if (existe) {
-            throw new IllegalArgumentException("El código ya existe");
+            throw new IllegalArgumentException(
+                    "El código ya existe"
+            );
         }
 
         Pedido pedido = new Pedido(
@@ -69,55 +75,65 @@ public class Panaderia {
                 nombreCliente,
                 tipoPan,
                 cantidadPan
-
         );
 
         listaPedidos.add(pedido);
     }
 
     // ASIGNAR PEDIDO
-
     public void asignarPedido(String codigo) {
 
         Pedido pedido = buscarPedido(codigo);
 
         if (pedido == null) {
             throw new IllegalArgumentException(
-                    "El pedido no existe");
+                    "El pedido no existe"
+            );
         }
 
         if (pedido.getEstado() != Estado.PENDIENTE) {
             throw new IllegalStateException(
-                    "El pedido no está pendiente");
+                    "El pedido no está pendiente"
+            );
         }
 
         Empleado mejorEmpleado = listaEmpleados.stream()
 
                 .filter(e -> e instanceof IPanadero)
 
-                .filter(e -> ((IPanadero) e).calcularMinutos(
-                        pedido.getTipoPan(),
-                        pedido.getCantidadPan())
-                        <= e.getMinutosDisponibles())
+                .filter(e ->
+                        ((IPanadero) e).calcularMinutos(
+                                pedido.getTipoPan(),
+                                pedido.getCantidadPan()
+                        ) <= e.getMinutosDisponibles()
+                )
 
                 .min((e1, e2) -> Integer.compare(
+
                         ((IPanadero) e1).calcularMinutos(
-                                pedido.getTipoPan(), pedido.getCantidadPan()),
+                                pedido.getTipoPan(),
+                                pedido.getCantidadPan()
+                        ),
 
                         ((IPanadero) e2).calcularMinutos(
-                                pedido.getTipoPan(), pedido.getCantidadPan())
+                                pedido.getTipoPan(),
+                                pedido.getCantidadPan()
+                        )
                 ))
 
                 .orElse(null);
 
         if (mejorEmpleado == null) {
             throw new IllegalStateException(
-                    "No hay panaderos disponibles para este pedido");
+                    "No hay panaderos disponibles para este pedido"
+            );
         }
 
-        int minutos = ((IPanadero) mejorEmpleado).calcularMinutos(
-                pedido.getTipoPan(),
-                pedido.getCantidadPan());
+        int minutos = ((IPanadero) mejorEmpleado)
+                .calcularMinutos(
+                        pedido.getTipoPan(),
+                        pedido.getCantidadPan()
+                );
 
         mejorEmpleado.descontarMinutos(minutos);
 
@@ -125,19 +141,20 @@ public class Panaderia {
     }
 
     // CANCELAR PEDIDO
-
     public void cancelarPedido(String codigo) {
 
         Pedido pedido = buscarPedido(codigo);
 
         if (pedido == null) {
             throw new IllegalArgumentException(
-                    "El pedido no existe");
+                    "El pedido no existe"
+            );
         }
 
-        if (pedido.getEstado() ==Estado.CANCELADO) {
+        if (pedido.getEstado() == Estado.CANCELADO) {
             throw new IllegalStateException(
-                    "El pedido ya está cancelado");
+                    "El pedido ya está cancelado"
+            );
         }
 
         if (pedido.getEstado() == Estado.ASIGNADO) {
@@ -145,18 +162,21 @@ public class Panaderia {
             Empleado empleado = listaEmpleados.stream()
 
                     .filter(e -> e.getCodigo().equals(
-                            pedido.getCodigoPanaderoAsignado()))
+                            pedido.getCodigoPanaderoAsignado()
+                    ))
 
                     .findFirst()
                     .orElse(null);
 
             if (empleado == null) {
                 throw new IllegalStateException(
-                        "No se encontró el panadero asignado");
+                        "No se encontró el panadero asignado"
+                );
             }
 
             empleado.devolverMinutos(
-                    pedido.getMinutosReservados());
+                    pedido.getMinutosReservados()
+            );
         }
 
         pedido.cancelar();
