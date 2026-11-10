@@ -87,14 +87,14 @@ public class PanaderiaTest {
 
         LOG.info("Inicio de prueba registrarPedidoCantidadInvalidaTest");
 
-        // Act y Assert: intentar registrar un pedido con cantidad 0
+
         assertThrows(IllegalArgumentException.class, () -> {
             panaderia.registrarPedido(
                     "P03", "Juan", Pan.TRADICIONAL, 0
             );
         });
 
-        // Comprobar que no se registró ningún pedido
+
         assertEquals(0, panaderia.getListaPedidos().size());
 
         LOG.info("Fin de prueba registrarPedidoCantidadInvalidaTest");
